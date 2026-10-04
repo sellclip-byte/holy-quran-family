@@ -1,4 +1,4 @@
-const CACHE = 'holy-quran-family-v1';
+const CACHE = 'holy-quran-family-v2';
 const ASSETS = ['./', './index.html', './styles.css', './manifest.webmanifest', './assets/header.svg', './assets/icon.svg'];
 
 self.addEventListener('install', (e) => {
@@ -16,6 +16,6 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || fetch(e.request).catch(() => caches.match('./index.html')))
+    caches.match(e.request, { ignoreSearch: true }).then((hit) => hit || fetch(e.request).then((r) => { if (r.ok && new URL(e.request.url).origin === location.origin) { const c = r.clone(); caches.open(CACHE).then((x) => x.put(e.request, c)); } return r; }).catch(() => caches.match('./index.html')))
   );
 });
