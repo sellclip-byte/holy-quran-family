@@ -10,8 +10,89 @@
   <main class="app reader">
     <header class="reader-head"><a class="back" href="index.html" aria-label="العودة">←</a><div><h1>الاستماع</h1><p>Audio</p></div></header>
     <section class="reader-card">
-      <p class="reader-note">قريبًا: تلاوات القرآن الكريم بالصوت.</p>
+      <label for="reciter">القارئ / Reciter</label>
+      <select id="reciter"></select>
+      <label for="surah" style="margin-top:12px">السورة / Surah</label>
+      <select id="surah"></select>
+      <div class="reader-actions" style="margin-top:14px">
+        <button id="play" type="button" style="width:100%">تشغيل</button>
+      </div>
+      <audio id="player" controls preload="none" style="width:100%;margin-top:14px"></audio>
+      <p class="reader-note" id="note">اختر القارئ والسورة ثم اضغط تشغيل.</p>
     </section>
   </main>
+  <script>
+  (function () {
+    var RECITERS = [
+      { name: 'مشاري العفاسي', base: 'https://server8.mp3quran.net/afs/' },
+      { name: 'عبد الباسط عبد الصمد (مرتّل)', base: 'https://server7.mp3quran.net/basit/' },
+      { name: 'محمود خليل الحصري', base: 'https://server13.mp3quran.net/husr/' },
+      { name: 'سعد الغامدي', base: 'https://server7.mp3quran.net/s_gmd/' }
+    ];
+    var SURAHS = ['الفاتحة','البقرة','آل عمران','النساء','المائدة','الأنعام','الأعراف','الأنفال','التوبة','يونس','هود','يوسف','الرعد','إبراهيم','الحجر','النحل','الإسراء','الكهف','مريم','طه','الأنبياء','الحج','المؤمنون','النور','الفرقان','الشعراء','النمل','القصص','العنكبوت','الروم','لقمان','السجدة','الأحزاب','سبأ','فاطر','يس','الصافات','ص','الزمر','غافر','فصلت','الشورى','الزخرف','الدخان','الجاثية','الأحقاف','محمد','الفتح','الحجرات','ق','الذاريات','الطور','النجم','القمر','الرحمن','الواقعة','الحديد','المجادلة','الحشر','الممتحنة','الصف','الجمعة','المنافقون','التغابن','الطلاق','التحريم','الملك','القلم','الحاقة','المعارج','نوح','الجن','المزمل','المدثر','القيامة','الإنسان','المرسلات','النبأ','النازعات','عبس','التكوير','الانفطار','المطففين','الانشقاق','البروج','الطارق','الأعلى','الغاشية','الفجر','البلد','الشمس','الليل','الضحى','الشرح','التين','العلق','القدر','البينة','الزلزلة','العاديات','القارعة','التكاثر','العصر','الهمزة','الفيل','قريش','الماعون','الكوثر','الكافرون','النصر','المسد','الإخلاص','الفلق','الناس'];
+    var KEY = 'hqf-audio';
+    var rSel = document.getElementById('reciter');
+    var sSel = document.getElementById('surah');
+    var btn = document.getElementById('play');
+    var audio = document.getElementById('player');
+    var note = document.getElementById('note');
+
+    function pad2(n) { return ('00' + n).slice(-3); }
+    function setNote(t) { note.textContent = t; }
+    function updateBtn() { btn.textContent = audio.paused ? 'تشغيل' : 'إيقاف مؤقت'; }
+
+    RECITERS.forEach(function (r, i) {
+      var o = document.createElement('option');
+      o.value = String(i); o.textContent = r.name; rSel.appendChild(o);
+    });
+    SURAHS.forEach(function (s, i) {
+      var o = document.createElement('option');
+      o.value = String(i + 1); o.textContent = (i + 1) + ' - ' + s; sSel.appendChild(o);
+    });
+
+    function save() {
+      try { localStorage.setItem(KEY, JSON.stringify({ reciter: +rSel.value, surah: +sSel.value })); } catch (e) {}
+    }
+    try {
+      var st = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (st && st.reciter >= 0 && st.reciter < RECITERS.length) rSel.value = String(st.reciter);
+      if (st && st.surah >= 1 && st.surah <= 114) sSel.value = String(st.surah);
+    } catch (e) {}
+
+    function load(autoplay) {
+      var r = RECITERS[+rSel.value];
+      audio.src = r.base + pad2(+sSel.value) + '.mp3';
+      save();
+      setNote('جارٍ التحميل...');
+      if (autoplay) play();
+    }
+    function play() {
+      var p = audio.play();
+      if (p && p.catch) {
+        p.catch(function (e) {
+          if (e && e.name === 'NotAllowedError') setNote('اضغط زر التشغيل لبدء التلاوة.');
+          else if (e && e.name !== 'AbortError') setNote('تعذّر تشغيل الصوت. جرّب قارئًا أو سورة أخرى.');
+          updateBtn();
+        });
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      if (!audio.src) load(true);
+      else if (audio.paused) play();
+      else audio.pause();
+    });
+    sSel.addEventListener('change', function () { load(true); });
+    rSel.addEventListener('change', function () { load(!audio.paused); });
+    audio.addEventListener('playing', function () { setNote('جارٍ التشغيل: ' + SURAHS[+sSel.value - 1]); updateBtn(); });
+    audio.addEventListener('pause', function () { if (!audio.ended) setNote('تم الإيقاف مؤقتًا'); updateBtn(); });
+    audio.addEventListener('ended', function () { setNote('انتهت التلاوة'); updateBtn(); });
+    audio.addEventListener('waiting', function () { setNote('جارٍ التحميل...'); });
+    audio.addEventListener('error', function () { setNote('تعذّر تحميل الملف الصوتي. تحقق من الاتصال أو جرّب قارئًا آخر.'); updateBtn(); });
+
+    audio.src = RECITERS[+rSel.value].base + pad2(+sSel.value) + '.mp3';
+    updateBtn();
+  })();
+  </script>
 </body>
 </html>
