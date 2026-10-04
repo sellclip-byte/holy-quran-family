@@ -1,8 +1,8 @@
-:root{--navy:#0a1a3a;--navy2:#14305f;--gold:#d4af37;--gold2:#f3d77a;--text:#f5ecd0}
+:root{--bg-top:#5a351d;--bg-bottom:#2d180d;--surface-top:#4a2b17;--surface-bottom:#2d180d;--surface-item:#3b2213;--navy:var(--bg-bottom);--navy2:var(--bg-top);--gold:#d9a43a;--gold2:#f3d77a;--text:#f5ecd0;--border-soft:rgba(217,164,58,.5);--border-strong:rgba(217,164,58,.75)}
 *{box-sizing:border-box;margin:0}
 html,body{min-height:100%}
 body{background:var(--navy);color:var(--text);font-family:"Noto Naskh Arabic","Amiri","Traditional Arabic","Geeza Pro",Tahoma,"Segoe UI",Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-.app{max-width:480px;margin:0 auto;min-height:100vh;padding:0 0 calc(16px + env(safe-area-inset-bottom));background:linear-gradient(180deg,var(--navy),#071228)}
+.app{max-width:480px;margin:0 auto;min-height:100vh;padding:0 0 calc(16px + env(safe-area-inset-bottom));background:linear-gradient(180deg,var(--bg-top),var(--bg-bottom))}
 .hero{position:relative;height:250px;overflow:hidden;border-bottom:2px solid var(--gold)}
 .hero-img{width:100%;height:100%;object-fit:cover;display:block}
 .hero-text{position:absolute;inset:auto 0 70px;text-align:center;text-shadow:0 2px 8px #000}
@@ -48,17 +48,23 @@ html[dir="ltr"] body{font-family:system-ui,"Segoe UI",Arial,sans-serif}
 
 /* Quran reader */
 .reader{padding:18px 14px 32px}
-.reader-head{display:flex;align-items:center;justify-content:center;position:relative;padding:12px 8px 18px;text-align:center;border-bottom:1px solid rgba(212,175,55,.45)}
+.reader-head{display:flex;align-items:center;justify-content:center;position:relative;padding:12px 8px 18px;text-align:center;border-bottom:1px solid var(--border-soft)}
 .reader-head h1{color:var(--gold2);font-size:1.8rem;line-height:1.3}.reader-head p{font:500 .85rem system-ui,Arial;color:#e7d79f;margin-top:3px}
 .back{position:absolute;right:2px;top:14px;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--gold);border-radius:12px;color:var(--gold2);text-decoration:none;font-size:1.3rem}
-.reader-card{margin-top:18px;padding:18px 14px;border:1px solid rgba(212,175,55,.75);border-radius:20px;background:linear-gradient(180deg,#102752,#091a39);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.reader-card{margin-top:18px;padding:18px 14px;border:1px solid var(--border-strong);border-radius:20px;background:linear-gradient(180deg,var(--surface-top),var(--surface-bottom));box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .reader-card label{display:block;color:#f5e7b8;font-size:.9rem;margin-bottom:8px}
 .reader-card select{width:100%;height:46px;border:1px solid var(--gold);border-radius:12px;background:#fffdf6;color:#16213b;padding:0 12px;font-size:1rem;font-family:inherit}
 .ayah-nav{display:grid;grid-template-columns:90px 1fr 90px;align-items:center;gap:8px;margin:14px 0}
-.ayah-nav button,.reader-actions button{min-height:40px;border:1px solid var(--gold);border-radius:11px;background:#173565;color:#fff;font-family:inherit;font-size:.9rem}
+.ayah-nav button,.reader-actions button{min-height:40px;border:1px solid var(--gold);border-radius:11px;background:var(--surface-item);color:#fff;font-family:inherit;font-size:.9rem}
 .ayah-nav span{text-align:center;color:var(--gold2);font-size:.85rem}
 .ayah-box{min-height:190px;display:flex;align-items:center;justify-content:center;padding:24px 16px;border-radius:17px;background:#fffdf4;border:1px solid #dfc56e;box-shadow:inset 0 0 18px rgba(212,175,55,.12)}
 .ayah-box p{color:#15213a;text-align:center;font-size:1.55rem;line-height:2.05;font-weight:600}
 .reader-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
 .reader-note{text-align:center;color:#d9cfb0;font-size:.72rem;line-height:1.6;margin-top:12px}
 @media(max-width:360px){.ayah-nav{grid-template-columns:76px 1fr 76px}.ayah-box p{font-size:1.35rem}}
+.item{padding:12px;border:1px solid var(--border-soft);border-radius:12px;background:var(--surface-item);color:#fff}
+.item-link{display:grid;gap:4px;padding:10px 12px;text-decoration:none}
+.item-row{display:flex;justify-content:space-between}
+.item-title{margin:0 0 8px;color:var(--gold2)}
+.item-body{margin:0;line-height:2}
+.btn-themed{border:1px solid var(--gold);border-radius:11px;background:var(--surface-item);color:#fff}
