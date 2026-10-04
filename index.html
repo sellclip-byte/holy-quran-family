@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>القرآن الكريم - Holy Quran</title><meta name="theme-color" content="#0a1a3a"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"></head>
-<body><main class="app">
-<header class="hero"><button class="hbtn gear">⚙</button><button id="langBtn" class="hbtn lang">EN</button><img src="assets/header.svg" alt="" class="hero-img"><div class="hero-text"><h1 data-ar="القرآن الكريم" data-en="Holy Quran">القرآن الكريم</h1><p>HOLY QURAN FAMILY</p></div></header>
-<section class="welcome"><p class="w-ar" data-ar="السلام عليكم" data-en="Assalamu Alaikum">السلام عليكم</p><p class="w-ar2" data-ar="أهلاً بك في رحاب القرآن الكريم" data-en="Welcome to the Holy Quran">أهلاً بك في رحاب القرآن الكريم</p></section>
-<nav class="grid primary">
-<a href="quran.html" class="btn big quran"><span class="tileicon">☷</span><b data-ar="القرآن الكريم" data-en="Quran">القرآن الكريم</b><small>Quran</small></a>
-<a href="#listen" class="btn big listen"><span class="tileicon">🎧</span><b data-ar="الاستماع" data-en="Listen">الاستماع</b><small>Listen</small></a>
-<a href="#prayer" class="btn big prayer"><span class="tileicon">⌂</span><b data-ar="مواقيت الصلاة" data-en="Prayer Times">مواقيت الصلاة</b><small>Prayer Times</small></a>
-<a href="#kids" class="btn big kids"><span class="tileicon">☺</span><b data-ar="للأطفال" data-en="Kids">للأطفال</b><small>Kids</small></a>
-</nav>
-<nav class="grid secondary">
-<a href="#memorization" class="btn small mem"><b data-ar="الحفظ" data-en="Memorization">الحفظ</b><small>Memorization</small></a>
-<a href="#search" class="btn small search"><b data-ar="البحث" data-en="Search">البحث</b><small>Search</small></a>
-<a href="#favorites" class="btn small fav"><b data-ar="المفضلة" data-en="Favorites">المفضلة</b><small>Favorites</small></a>
-<a href="#dua" class="btn small dua"><b data-ar="الأذكار" data-en="Dua & Dhikr">الأذكار</b><small>Dua &amp; Dhikr</small></a>
-</nav>
-<section class="learning"><h2 data-ar="التعلّم" data-en="Learning">التعلّم</h2><div class="learning-grid">
-<a href="learn-arabic.html" class="learn-card arabic"><b data-ar="تعلم اللغة العربية" data-en="Learn Arabic">تعلم اللغة العربية</b><small>Learn Arabic</small><span data-ar="الحروف • النطق • الكلمات • القراءة" data-en="Letters • Pronunciation • Words • Reading">الحروف • النطق • الكلمات • القراءة</span></a>
-<a href="learn-english.html" class="learn-card english"><b data-ar="تعلم اللغة الإنجليزية" data-en="Learn English">تعلم اللغة الإنجليزية</b><small>Learn English</small><span data-ar="الحروف • النطق • الكلمات • القراءة" data-en="Letters • Pronunciation • Words • Reading">الحروف • النطق • الكلمات • القراءة</span></a>
-</div></section>
-</main><script>
-const lb=document.getElementById('langBtn'); let lang=localStorage.getItem('hqf-lang')||'ar';
-function setLang(l){lang=l;document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';document.querySelectorAll('[data-ar]').forEach(e=>e.textContent=e.dataset[l]);lb.textContent=l==='ar'?'EN':'AR';localStorage.setItem('hqf-lang',l)}
-lb.onclick=()=>setLang(lang==='ar'?'en':'ar');setLang(lang);
-</script></body></html>
+<!doctype html><html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>القرآن الكريم | Holy Quran Family</title><meta name="theme-color" content="#06172f">
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#06172f;color:#fff;font-family:Arial,Tahoma,sans-serif}
+.app{width:min(100%,520px);margin:auto;padding:12px 10px 28px}
+.head{text-align:center;padding:18px 8px 14px;border:1px solid #c99b2c;border-radius:18px;margin-bottom:12px;background:#0a2345}
+.head h1{margin:0;color:#f2c64d;font-size:29px}.head p{margin:5px 0 0;letter-spacing:3px;font-size:13px;color:#f4df9a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{height:150px;position:relative;overflow:hidden;border:1.5px solid #e2b33c;border-radius:18px;text-decoration:none;color:#fff;background:#10294d}
+.pic{position:absolute;inset:0;background-image:linear-gradient(to top,rgba(2,12,29,.94) 0%,rgba(2,12,29,.18) 68%),url('assets/100.png');background-repeat:no-repeat;background-size:215% auto}
+.c1 .pic{background-position:4% 23%}.c2 .pic{background-position:96% 23%}
+.c3 .pic{background-position:4% 39%}.c4 .pic{background-position:96% 39%}
+.c5 .pic{background-position:4% 55%}.c6 .pic{background-position:96% 55%}
+.c7 .pic{background-position:4% 71%}.c8 .pic{background-position:96% 71%}
+.txt{position:absolute;left:8px;right:8px;bottom:10px;text-align:center;text-shadow:0 2px 4px #000}
+.txt b{display:block;color:#f6d46b;font-size:19px;margin-bottom:3px}.txt small{font-size:12px}
+@media(max-width:390px){.card{height:132px}.txt b{font-size:17px}}
+</style></head><body><main class="app">
+<header class="head"><h1>القرآن الكريم</h1><p>HOLY QURAN FAMILY</p></header>
+<nav class="grid">
+<a class="card c1" href="quran.html"><span class="pic"></span><span class="txt"><b>القرآن الكريم</b><small>Holy Quran</small></span></a>
+<a class="card c2" href="#listen"><span class="pic"></span><span class="txt"><b>الاستماع</b><small>Audio Recitation</small></span></a>
+<a class="card c3" href="#prayer"><span class="pic"></span><span class="txt"><b>الصلاة</b><small>Prayer</small></span></a>
+<a class="card c4" href="#kids"><span class="pic"></span><span class="txt"><b>الأطفال</b><small>For Children</small></span></a>
+<a class="card c5" href="#memorization"><span class="pic"></span><span class="txt"><b>الحفظ والمراجعة</b><small>Memorization</small></span></a>
+<a class="card c6" href="#search"><span class="pic"></span><span class="txt"><b>البحث</b><small>Search</small></span></a>
+<a class="card c7" href="#favorites"><span class="pic"></span><span class="txt"><b>المفضلة</b><small>Favorites</small></span></a>
+<a class="card c8" href="#dua"><span class="pic"></span><span class="txt"><b>الأدعية</b><small>Dua</small></span></a>
+</nav></main></body></html>
