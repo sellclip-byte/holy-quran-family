@@ -1,5 +1,5 @@
-const CACHE = 'holy-quran-family-v3';
-const ASSETS = ['./', './index.html', './styles.css', './manifest.webmanifest', './assets/header.svg', './assets/icon.svg'];
+const CACHE = 'holy-quran-family-v4';
+const ASSETS = ['./', './index.html', './styles.css', './manifest.webmanifest', './assets/100.png', './assets/icon.svg'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
