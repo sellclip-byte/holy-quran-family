@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>الأدعية</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app reader">
+    <header class="reader-head"><a class="back" href="index.html" aria-label="العودة">←</a><div><h1>الأدعية</h1><p>Dua</p></div></header>
+    <section class="reader-card">
+      <div id="duas" style="display:grid;gap:10px"></div>
+      <p class="reader-note">أدعية يومية مختصرة</p>
+    </section>
+  </main>
+<script>
+const data=[
+{t:'دعاء الاستيقاظ',a:'الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور.'},
+{t:'دعاء قبل الطعام',a:'بسم الله.'},
+{t:'دعاء بعد الطعام',a:'الحمد لله الذي أطعمنا وسقانا وجعلنا مسلمين.'},
+{t:'دعاء دخول المنزل',a:'بسم الله ولجنا وبسم الله خرجنا وعلى ربنا توكلنا.'},
+{t:'دعاء السفر',a:'سبحان الذي سخر لنا هذا وما كنا له مقرنين وإنا إلى ربنا لمنقلبون.'},
+{t:'دعاء الكرب',a:'لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم.'}
+];
+const c=document.getElementById('duas');
+data.forEach(function(d){const x=document.createElement('article');x.style.cssText='padding:12px;border:1px solid rgba(212,175,55,.5);border-radius:14px;background:#102752;color:#fff';x.innerHTML='<h3 style="margin:0 0 8px;color:#f3d77a">'+d.t+'</h3><p style="margin:0;line-height:2">'+d.a+'</p>';c.appendChild(x)});
+</script>
+</body>
+</html>
