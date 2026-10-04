@@ -5,13 +5,30 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>الصلاة</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prayer-card{background:linear-gradient(180deg,#b99858,#806236);border:4px solid #e3c775;border-radius:24px;padding:18px 14px;box-shadow:inset 0 0 0 2px #5c431f,0 8px 24px #0008}
+    .prayer-intro{text-align:center;color:#2f1c08;font-size:1.3rem;font-weight:900;line-height:1.7;margin-bottom:16px}
+    .prayer-grid{display:grid;gap:11px}
+    .prayer-step{display:flex;align-items:center;gap:12px;padding:14px;border:3px solid #d8b55e;border-radius:16px;background:#45351d;color:#ffe7a3;text-decoration:none;box-shadow:0 4px 10px #0005}
+    .prayer-step .num{display:grid;place-items:center;flex:0 0 46px;height:46px;border-radius:50%;background:#a9843b;border:2px solid #f1d276;color:#fff;font:bold 1.25rem system-ui}
+    .prayer-step b{display:block;font-size:1.25rem}.prayer-step small{display:block;margin-top:3px;color:#f5e7bd;font:700 .95rem system-ui,Arial}
+    .dua-link{display:block;margin-top:16px;padding:15px;text-align:center;text-decoration:none;border:3px solid #d8b55e;border-radius:16px;background:#fff0b9;color:#3b260d;font-size:1.25rem;font-weight:900}
+  </style>
 </head>
 <body>
   <main class="app reader">
     <header class="reader-head"><a class="back" href="index.html" aria-label="العودة">←</a><div><h1>الصلاة</h1><p>Prayer</p></div></header>
-    <section class="reader-card">
-      <p class="reader-note">قريبًا: تعليم الصلاة ومواقيتها للأسرة.</p>
-      <p><a href="dua.html">الأدعية</a></p>
+    <section class="reader-card prayer-card">
+      <p class="prayer-intro">دليل مبسّط للصلاة خطوة بخطوة<br><span dir="ltr">A simple step-by-step prayer guide</span></p>
+      <div class="prayer-grid">
+        <div class="prayer-step"><span class="num">1</span><div><b>الوضوء</b><small>Wudu · Preparation for prayer</small></div></div>
+        <div class="prayer-step"><span class="num">2</span><div><b>النية واستقبال القبلة</b><small>Intention & Qibla</small></div></div>
+        <div class="prayer-step"><span class="num">3</span><div><b>تكبيرة الإحرام والقيام</b><small>Opening Takbir & Standing</small></div></div>
+        <div class="prayer-step"><span class="num">4</span><div><b>الركوع</b><small>Ruku · Bowing</small></div></div>
+        <div class="prayer-step"><span class="num">5</span><div><b>السجود</b><small>Sujud · Prostration</small></div></div>
+        <div class="prayer-step"><span class="num">6</span><div><b>التشهد والتسليم</b><small>Tashahhud & Taslim</small></div></div>
+      </div>
+      <a class="dua-link" href="dua.html">الأدعية · Duas</a>
     </section>
   </main>
 </body>
