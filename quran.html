@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>القرآن الكريم</title>
-<meta name="theme-color" content="#0a1a3a"><link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<main class="app reader">
-<header class="reader-head"><a href="index.html" class="back">←</a><div><h1>القرآن الكريم</h1><p>Holy Quran</p></div></header>
-<section class="reader-card">
-<label for="surah">اختر السورة · Select Surah</label>
-<select id="surah"></select>
-<div class="ayah-nav"><button id="prev">السابق</button><span id="counter"></span><button id="next">التالي</button></div>
-<article class="ayah-box"><p id="ayah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p></article>
-<p class="reader-note">هذه بداية قارئ القرآن. سيتم إدخال نص القرآن الكامل والبحث والحفظ والاستماع في المرحلة التالية.</p>
-</section>
-</main>
-<script>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>القرآن الكريم</title><meta name="theme-color" content="#0a1a3a"><link rel="stylesheet" href="styles.css"></head><body><main class="app reader"><header class="reader-head"><a href="index.html" class="back">←</a><div><h1>القرآن الكريم</h1><p>Holy Quran</p></div></header><section class="reader-card"><label for="surah">اختر السورة · Select Surah</label><select id="surah"></select><div class="ayah-nav"><button id="prev">السابق</button><span id="counter"></span><button id="next">التالي</button></div><article class="ayah-box"><p id="ayah">جاري تحميل السورة…</p></article><div class="reader-actions"><button id="fav">☆ المفضلة</button><button id="resume">آخر موضع</button></div><p class="reader-note" id="status">النص العثماني. يتم حفظ آخر موضع تلقائيًا.</p></section></main><script>
 const names=["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
-const s=document.getElementById("surah"); names.forEach((n,i)=>s.add(new Option((i+1)+" - "+n,i+1)));
-let a=1; const c=document.getElementById("counter"); function draw(){c.textContent="الآية "+a;} draw();
-document.getElementById("prev").onclick=()=>{if(a>1)a--;draw()}; document.getElementById("next").onclick=()=>{a++;draw()};
-</script>
-</body></html>
+const s=document.getElementById("surah"), ay=document.getElementById("ayah"), counter=document.getElementById("counter"), status=document.getElementById("status"); names.forEach((n,i)=>s.add(new Option((i+1)+" - "+n,i+1)));
+let chapter=1,verse=1,verses=[];
+async function loadChapter(n,keep=false){status.textContent="جاري تحميل السورة…";try{const r=await fetch("https://quran-json.risanb.com/text/uthmani/chapters/"+n+".json");if(!r.ok)throw 0;const d=await r.json();verses=d.verses||[];chapter=Number(n);if(!keep)verse=1;draw();status.textContent="النص العثماني • يتم حفظ آخر موضع تلقائيًا";}catch(e){ay.textContent="تعذر تحميل السورة. تحقق من الاتصال ثم حاول مرة أخرى.";status.textContent="سيتم دعم القراءة الكاملة دون إنترنت بعد حفظ ملفات القرآن محليًا.";}}
+function draw(){const v=verses.find(x=>Number(x.id||x.aya)===verse)||verses[verse-1];if(!v)return;ay.textContent=v.text;counter.textContent="الآية "+verse+" من "+verses.length;s.value=chapter;localStorage.setItem("hqf-last",JSON.stringify({chapter,verse}));updateFav();}
+s.onchange=()=>loadChapter(s.value);document.getElementById("prev").onclick=()=>{if(verse>1){verse--;draw()}};document.getElementById("next").onclick=()=>{if(verse<verses.length){verse++;draw()}};
+function favs(){return JSON.parse(localStorage.getItem("hqf-favs")||"[]")}function updateFav(){document.getElementById("fav").textContent=favs().some(x=>x.chapter===chapter&&x.verse===verse)?"★ محفوظة":"☆ المفضلة"}
+document.getElementById("fav").onclick=()=>{let f=favs(),i=f.findIndex(x=>x.chapter===chapter&&x.verse===verse);if(i>=0)f.splice(i,1);else f.push({chapter,verse});localStorage.setItem("hqf-favs",JSON.stringify(f));updateFav()};
+document.getElementById("resume").onclick=async()=>{const l=JSON.parse(localStorage.getItem("hqf-last")||"null");if(l){verse=l.verse;await loadChapter(l.chapter,true)}};
+const last=JSON.parse(localStorage.getItem("hqf-last")||"null");if(last){verse=last.verse;loadChapter(last.chapter,true)}else loadChapter(1);
+</script></body></html>
