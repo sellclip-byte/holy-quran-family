@@ -24,7 +24,7 @@ const data=[
 {t:'دعاء الكرب',a:'لا إله إلا الله العظيم الحليم، لا إله إلا الله رب العرش العظيم.'}
 ];
 const c=document.getElementById('duas');
-data.forEach(function(d){const x=document.createElement('article');x.style.cssText='padding:12px;border:1px solid rgba(212,175,55,.5);border-radius:14px;background:#102752;color:#fff';x.innerHTML='<h3 style="margin:0 0 8px;color:#f3d77a">'+d.t+'</h3><p style="margin:0;line-height:2">'+d.a+'</p>';c.appendChild(x)});
+data.forEach(function(d){const x=document.createElement('article');x.className='item';x.innerHTML='<h3 class="item-title">'+d.t+'</h3><p class="item-body">'+d.a+'</p>';c.appendChild(x)});
 </script>
 </body>
 </html>
