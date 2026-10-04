@@ -1,4 +1,4 @@
-const CACHE = 'holy-quran-family-v2';
+const CACHE = 'holy-quran-family-v3';
 const ASSETS = ['./', './index.html', './styles.css', './manifest.webmanifest', './assets/header.svg', './assets/icon.svg'];
 
 self.addEventListener('install', (e) => {
