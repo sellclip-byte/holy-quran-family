@@ -9,7 +9,10 @@
     .audio-panel{background:linear-gradient(180deg,#b99858,#806236);border:4px solid #e3c775;border-radius:24px;padding:22px 16px;box-shadow:inset 0 0 0 2px #5c431f,0 8px 24px #0008}
     .audio-panel label{font-size:1.35rem!important;font-weight:800;color:#3a260e!important;text-shadow:0 1px #e9d397}
     .audio-panel select{height:62px!important;font-size:1.25rem!important;font-weight:800!important;background:#46391f!important;color:#ffe7a3!important;border:3px solid #d8b55e!important;border-radius:14px!important;margin-bottom:14px}
-    .audio-panel audio{height:54px;margin:12px 0!important}
+    .audio-panel audio{display:none}
+    .custom-player{margin:14px 0 18px;padding:14px;border:2px solid #d8b55e;border-radius:18px;background:#3f321d;box-shadow:inset 0 2px 8px #0008}
+    .progress-wrap input{width:100%;height:12px;accent-color:#f1cc64;cursor:pointer}
+    .time-row{display:flex;direction:ltr;justify-content:center;gap:8px;margin-top:8px;color:#ffe6a0;font:800 1.2rem system-ui,Arial}
     .audio-panel .reader-actions{grid-template-columns:1fr 1.15fr 1fr!important;gap:10px!important}
     .audio-panel .reader-actions button{min-height:76px!important;border-radius:50px!important;border:4px solid #d8b55e!important;background:radial-gradient(circle,#8b713d,#3e311c)!important;color:#ffe6a0!important;font-size:1.35rem!important;font-weight:900!important;box-shadow:inset 0 2px 8px #f7dfa055,0 5px 10px #0007!important;text-shadow:0 2px 2px #000}
     .audio-panel #toggle{background:radial-gradient(circle,#b69243,#4a371b)!important;box-shadow:0 0 18px #f0cf69,inset 0 2px 8px #fff5!important}
@@ -25,7 +28,11 @@
       <select id="reciter"></select>
       <label for="surah" style="display:block;margin-top:12px">السورة / Surah</label>
       <select id="surah"></select>
-      <audio id="player" controls preload="none" style="width:100%;margin-top:12px"></audio>
+      <audio id="player" preload="none"></audio>
+      <div class="custom-player">
+        <div class="progress-wrap"><input id="progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="تقدم التلاوة"></div>
+        <div class="time-row"><span id="currentTime">0:00</span><span>/</span><span id="duration">0:00</span></div>
+      </div>
       <div class="reader-actions">
         <button class="btn-themed" id="prev" type="button">السابق</button>
         <button class="btn-themed" id="toggle" type="button">تشغيل</button>
@@ -44,7 +51,7 @@
   ];
   const KEY="hqf-audio";
   const rs=document.getElementById("reciter"),ss=document.getElementById("surah"),p=document.getElementById("player"),
-    st=document.getElementById("status"),tg=document.getElementById("toggle");
+    st=document.getElementById("status"),tg=document.getElementById("toggle"),progress=document.getElementById("progress"),currentTime=document.getElementById("currentTime"),durationEl=document.getElementById("duration");
   reciters.forEach((r,i)=>rs.add(new Option(r.name,i)));
   names.forEach((n,i)=>ss.add(new Option((i+1)+" - "+n,i+1)));
   let saved=null;
@@ -71,6 +78,10 @@
   p.addEventListener("playing",()=>{st.textContent="يتم الآن تشغيل: "+label()});
   p.addEventListener("pause",()=>{if(!p.ended&&p.src)st.textContent="متوقف مؤقتًا: "+label()});
   p.addEventListener("waiting",()=>{st.textContent="جاري التحميل…"});
+  function fmt(t){if(!Number.isFinite(t))return "0:00";const m=Math.floor(t/60),s=Math.floor(t%60);return m+":"+String(s).padStart(2,"0")}
+  p.addEventListener("loadedmetadata",()=>{durationEl.textContent=fmt(p.duration)});
+  p.addEventListener("timeupdate",()=>{currentTime.textContent=fmt(p.currentTime);progress.value=p.duration?(p.currentTime/p.duration)*100:0});
+  progress.addEventListener("input",()=>{if(p.duration)p.currentTime=(progress.value/100)*p.duration});
   p.addEventListener("ended",()=>{sync();if(+ss.value<114){ss.value=+ss.value+1;load(true)}else st.textContent="انتهت التلاوة."});
   p.addEventListener("error",()=>{sync();st.textContent="تعذّر تحميل الملف الصوتي. تحقق من الاتصال أو جرّب قارئًا آخر."});
   ss.addEventListener("change",()=>load(true));
