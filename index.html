@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>القرآن الكريم - Holy Quran</title>
+<meta name="description" content="القرآن الكريم للعائلة - Holy Quran Family">
+<meta name="theme-color" content="#0a1a3a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app">
+  <header class="hero">
+    <img src="assets/header.svg" alt="" class="hero-img">
+    <div class="hero-text">
+      <h1>القرآن الكريم</h1>
+      <p lang="en" dir="ltr">Holy Quran</p>
+    </div>
+  </header>
+
+  <section class="welcome" aria-label="ترحيب">
+    <p class="welcome-title">السلام عليكم ورحمة الله</p>
+    <p>أهلاً بكم في تطبيق القرآن الكريم للعائلة</p>
+  </section>
+
+  <nav class="grid primary" aria-label="الأقسام الرئيسية">
+    <a href="#quran" class="btn big"><span class="ico">📖</span><b>القرآن</b><small lang="en" dir="ltr">Quran</small></a>
+    <a href="#listen" class="btn big"><span class="ico">🎧</span><b>استماع</b><small lang="en" dir="ltr">Listen</small></a>
+    <a href="#prayer" class="btn big"><span class="ico">🕌</span><b>مواقيت الصلاة</b><small lang="en" dir="ltr">Prayer Times</small></a>
+    <a href="#kids" class="btn big"><span class="ico">🧒</span><b>الأطفال</b><small lang="en" dir="ltr">Kids</small></a>
+  </nav>
+
+  <nav class="grid secondary" aria-label="أقسام أخرى">
+    <a href="#memorization" class="btn small"><span class="ico">🧠</span><b>الحفظ</b><small lang="en" dir="ltr">Memorization</small></a>
+    <a href="#search" class="btn small"><span class="ico">🔍</span><b>بحث</b><small lang="en" dir="ltr">Search</small></a>
+    <a href="#favorites" class="btn small"><span class="ico">⭐</span><b>المفضلة</b><small lang="en" dir="ltr">Favorites</small></a>
+    <a href="#dua" class="btn small"><span class="ico">🤲</span><b>الدعاء والذكر</b><small lang="en" dir="ltr">Dua &amp; Dhikr</small></a>
+  </nav>
+</main>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+}
+</script>
+</body>
+</html>
