@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>القرآن الكريم</title>
+<meta name="theme-color" content="#0a1a3a"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app reader">
+<header class="reader-head"><a href="index.html" class="back">←</a><div><h1>القرآن الكريم</h1><p>Holy Quran</p></div></header>
+<section class="reader-card">
+<label for="surah">اختر السورة · Select Surah</label>
+<select id="surah"></select>
+<div class="ayah-nav"><button id="prev">السابق</button><span id="counter"></span><button id="next">التالي</button></div>
+<article class="ayah-box"><p id="ayah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p></article>
+<p class="reader-note">هذه بداية قارئ القرآن. سيتم إدخال نص القرآن الكامل والبحث والحفظ والاستماع في المرحلة التالية.</p>
+</section>
+</main>
+<script>
+const names=["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
+const s=document.getElementById("surah"); names.forEach((n,i)=>s.add(new Option((i+1)+" - "+n,i+1)));
+let a=1; const c=document.getElementById("counter"); function draw(){c.textContent="الآية "+a;} draw();
+document.getElementById("prev").onclick=()=>{if(a>1)a--;draw()}; document.getElementById("next").onclick=()=>{a++;draw()};
+</script>
+</body></html>
