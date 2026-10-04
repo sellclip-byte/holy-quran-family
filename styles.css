@@ -94,3 +94,38 @@ body{font-size:18px}
   .item{font-size:1.25rem}.item-title{font-size:1.45rem}.item-body{font-size:1.3rem}
   .ayah-box p{font-size:1.85rem}
 }
+
+
+/* High-contrast full buttons and labels */
+@media(max-width:600px){
+  .btn,.learn-card,.btn-themed,.reader-actions button,.ayah-nav button{
+    border:3px solid #f3d77a !important;
+    border-radius:16px !important;
+    min-height:58px;
+    box-shadow:0 4px 12px rgba(0,0,0,.45) !important;
+  }
+  .btn b,.btn small,.learn-card b,.learn-card small,.learn-card span{
+    display:block;
+    width:92%;
+    padding:5px 7px;
+    border-radius:9px;
+    background:rgba(0,0,0,.48);
+    color:#fff !important;
+    line-height:1.25;
+  }
+  .btn b,.learn-card b{font-size:1.45rem !important;font-weight:800}
+  .btn small,.learn-card small,.learn-card span{font-size:1rem !important}
+  .reader-actions button,.ayah-nav button,.btn-themed{
+    background:#fff3c4 !important;
+    color:#3a1e0d !important;
+    font-size:1.35rem !important;
+    font-weight:800 !important;
+  }
+  .reader-card select{
+    background:#fff3c4 !important;
+    color:#2d180d !important;
+    border:3px solid #d9a43a !important;
+    font-size:1.35rem !important;
+    font-weight:700;
+  }
+}
