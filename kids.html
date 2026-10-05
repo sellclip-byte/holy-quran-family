@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>الأطفال</title>
   <link rel="stylesheet" href="styles.css" />
-</head>
+<style>
+.kids-shell{background:linear-gradient(180deg,#b99858,#806236);border:4px solid #e3c775;border-radius:24px;padding:14px;box-shadow:inset 0 0 0 2px #5c431f,0 8px 24px #0008}
+.kids-title{margin:0 0 12px;text-align:center;color:#2f1c08;font-size:1.08rem;font-weight:900}
+.kids-grid{display:grid;gap:12px}
+.kids-choice{display:grid;place-items:center;min-height:88px;border:3px solid #d8b55e;border-radius:18px;background:#45351d;color:#ffe7a3;text-decoration:none;text-align:center;box-shadow:0 4px 10px #0003}
+.kids-choice b{display:block;font-size:1.35rem}.kids-choice small{display:block;margin-top:5px;color:#fff0b9;font-size:.95rem}
+#quizBox .item{background:#fffdf4;border:3px solid #d8b55e;border-radius:18px;padding:14px;color:#2f1c08;font-weight:800}
+.reader-note{margin:14px 0 0;text-align:center;color:#3b260d;font-weight:900}
+@media(max-width:600px){.kids-shell{padding:10px}.kids-choice{min-height:82px}.kids-choice b{font-size:1.25rem}}
+</style></head>
 <body>
   <main class="app reader">
     <header class="reader-head">
@@ -16,10 +25,11 @@
       </div>
     </header>
 
-    <section class="reader-card">
-      <div style="display:grid;gap:10px">
-        <a class="btn big quran" href="quran.html" style="text-decoration:none"><b>قراءة مبسطة</b><small>Simple Reading</small></a>
-        <button id="quiz" class="btn big kids" type="button"><b>اختبار قصير</b><small>Short Quiz</small></button>
+    <section class="reader-card kids-shell">
+      <p class="kids-title">اختر ما تريد · Choose an Activity</p>
+      <div class="kids-grid">
+        <a class="kids-choice" href="quran.html"><span><b>قراءة مبسطة</b><small>Simple Reading</small></span></a>
+        <button id="quiz" class="kids-choice" type="button"><span><b>اختبار قصير</b><small>Short Quiz</small></span></button>
       </div>
       <div id="quizBox" style="margin-top:12px"></div>
       <p class="reader-note">محتوى تعليمي مبسط للأطفال</p>
