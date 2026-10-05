@@ -47,7 +47,7 @@
   </main>
   <script>
   const names=["الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
-  const reciters=[
+  let reciters=[
     {name:"مشاري راشد العفاسي / Mishary Alafasy",base:"https://server8.mp3quran.net/afs/"},
     {name:"عبد الباسط عبد الصمد (مرتل) / Abdul Basit (Murattal)",base:"https://server7.mp3quran.net/basit/"},
     {name:"محمود خليل الحصري / Mahmoud Khalil Al-Husary",base:"https://server13.mp3quran.net/husr/"},
@@ -57,6 +57,8 @@
   const rs=document.getElementById("reciter"),ss=document.getElementById("surah"),p=document.getElementById("player"),
     st=document.getElementById("status"),tg=document.getElementById("toggle"),progress=document.getElementById("progress"),currentTime=document.getElementById("currentTime"),durationEl=document.getElementById("duration");
   reciters.forEach((r,i)=>rs.add(new Option(r.name,i)));
+  async function addMoreReciters(){try{const res=await fetch("https://mp3quran.net/api/v3/reciters?language=ar");const data=await res.json();const seen=new Set(reciters.map(x=>x.base));for(const q of (data.reciters||[])){const m=(q.moshaf||[]).find(x=>x.surah_total===114&&x.server);if(!m||seen.has(m.server))continue;seen.add(m.server);reciters.push({name:q.name+" / "+m.name,base:m.server});rs.add(new Option(q.name+" / "+m.name,reciters.length-1));}}catch(e){}}
+  addMoreReciters();
   names.forEach((n,i)=>ss.add(new Option((i+1)+" - "+n,i+1)));
   let saved=null;
   try{saved=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
