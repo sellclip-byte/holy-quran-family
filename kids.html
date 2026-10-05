@@ -49,7 +49,14 @@ body{background:#2d180d}
       box.innerHTML = `\n        <div class="item">\n          <p style="margin-bottom:8px">${item.q}</p>\n          <input id="ans" type="text" placeholder="اكتب الإجابة" style="width:100%;height:40px;border:1px solid var(--gold);border-radius:10px;padding:0 10px"/>\n          <button id="check" class="btn-themed" style="margin-top:8px;width:100%;min-height:38px">تحقق</button>\n          <p id="res" style="margin-top:8px"></p>\n        </div>`;
       document.getElementById('check').onclick = ()=>{
         const val = (document.getElementById('ans').value||'').trim();
-        document.getElementById('res').textContent = val===item.a ? 'أحسنت ✅' : `الإجابة الصحيحة: ${item.a}`;
+        const res = document.getElementById('res');
+        if(val===item.a){
+          res.textContent = 'أحسنت ✅';
+          setTimeout(()=>document.getElementById('quiz').click(),700);
+        } else {
+          res.textContent = `الإجابة الصحيحة: ${item.a}`;
+          setTimeout(()=>document.getElementById('quiz').click(),1400);
+        }
       }
     };
   </script>
