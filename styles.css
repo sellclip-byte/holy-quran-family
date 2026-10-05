@@ -129,3 +129,9 @@ body{font-size:18px}
     font-weight:700;
   }
 }
+
+
+/* GLOBAL-GOLD-APP-FRAME */
+body{padding:6px!important;box-sizing:border-box}
+.app{box-sizing:border-box!important;border:3px solid #d8b55e!important;border-radius:22px!important;min-height:calc(100vh - 12px)!important;overflow:hidden!important;box-shadow:inset 0 0 0 2px #5c431f,0 0 18px #0007!important}
+@media(max-width:600px){body{padding:4px!important}.app{border-radius:18px!important;min-height:calc(100vh - 8px)!important}}
